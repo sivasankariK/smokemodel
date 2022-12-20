@@ -9,31 +9,31 @@ on:
       RESOURCE_GROUP:
         description: 'Resource Group Name'
         required: true
-        default: 'Databricks-MyProject'
+        default: 'mppRG'
 
       # The Azure region to which to deploy your resources
       LOCATION:
         description: 'Azure Region'
         required: true
-        default: 'EastUS2'
+        default: 'East US'
 
       # This is the name of your Azure Databricks resource
       WORKSPACE_NAME:
         description: 'Databricks workspace name'
         required: true
-        default: 'Databricks-MyProject'
+        default: 'spociqz'
 
       # This is a KeyVault for holding the Service Principal to make Databricks API calls and to hold Databricks KeyVault backed Secrets
       KEY_VAULT_NAME:
         description: 'KeyVault name'
         required: true
-        default: 'KeyVault-MyProject'
+        default: 'MPPRG'
 
       # This is a KeyVault for holding the Service Principal to make Databricks API calls and to hold Databricks KeyVault backed Secrets
       SUBSCRIPTION_ID:
         description: 'Azure Subscription Id'
         required: true
-        default: '00000000-0000-0000-0000-000000000000'
+        default: '2fe95813-59c2-451f-ba99-c111dc400f75'
 
       # Inialize the system
       # Note: We only want to run the KeyVault ARM template once.  If you keep re-running, then you will OVERWRITE your values
