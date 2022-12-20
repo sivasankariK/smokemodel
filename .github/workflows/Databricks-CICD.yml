@@ -39,7 +39,7 @@ on:
       WORKSPACE_NAME:
         description: 'Databricks workspace name'
         required: true
-        default: 'spociwz'
+        default: 'spociqz'
 
       # This is a KeyVault for holding the Service Principal to make Databricks API calls and to hold Databricks KeyVault backed Secrets
       KEY_VAULT_NAME:
@@ -130,11 +130,11 @@ jobs:
 #############################################################
   Dev:
     needs: Build
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     env:
-      resourceGroupName: 'Databricks-MyProject-MG-Dev'
-      databricksWorkspaceName: 'Databricks-MyProject-MG-Dev'
-      keyVaultName: 'KeyVault-MyProject7-Dev'
+      resourceGroupName: 'mppRg'
+      databricksWorkspaceName: 'spociqz'
+      keyVaultName: '504aa0ad-7e25-41d9-aa69-de04be310436'
       NotebookDeploymentPath: '/MyProject'
       GitNotebookPath: 'notebooks/MyProject'
 
@@ -203,8 +203,8 @@ jobs:
       # if: ${{ github.event.inputs.MODE == 'SKIP FOR TESTING' }}
       with:
         inlineScript: |
-          az group create --location 'EastUS2' --name 'Databricks-MyProject-MG-Dev'
-          az deployment group create --resource-group 'Databricks-MyProject-MG-Dev' --template-file $GITHUB_WORKSPACE/ARM-Templates/azuredeploy.databricks.json --parameters @$GITHUB_WORKSPACE/ARM-Templates/parameters.databricks.json --parameters workspaceName='Databricks-MyProject-MG-Dev'
+          az group create --location 'East US' --name 'spociqz'
+          az deployment group create --resource-group 'spociqz' --template-file $GITHUB_WORKSPACE/ARM-Templates/azuredeploy.databricks.json --parameters @$GITHUB_WORKSPACE/ARM-Templates/parameters.databricks.json --parameters workspaceName='spociqz'
     # Deploy Azure KeyVault
     - name: Deploy ARM Template (KeyVault)
       uses: azure/CLI@v1
@@ -220,7 +220,7 @@ jobs:
         ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
       #if: ${{ github.event.inputs.MODE == 'Databricks' }}
       with:
-        keyvault: 'KeyVault-MyProject7-Dev'
+        keyvault: '504aa0ad-7e25-41d9-aa69-de04be310436'
         secrets: 'databricks-dev-ops-subscription-id,databricks-dev-ops-tenant-id,databricks-dev-ops-client-id,databricks-dev-ops-client-secret'
       id: databricksSecretAction
 
@@ -257,13 +257,13 @@ jobs:
 #############################################################
   QA:
     needs: Dev
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     environment:
         name: Staging
     env:
-      resourceGroupName: 'Databricks-MyProject-MG-QA'
-      databricksWorkspaceName: 'Databricks-MyProject-MG-QA'
-      keyVaultName: 'KeyVault-MyProject7-QA'
+      resourceGroupName: 'mppRg'
+      databricksWorkspaceName: 'spociqz'
+      keyVaultName: '504aa0ad-7e25-41d9-aa69-de04be310436'
       NotebookDeploymentPath: '/MyProject'
       GitNotebookPath: 'notebooks/MyProject'
 
@@ -332,8 +332,8 @@ jobs:
       # if: ${{ github.event.inputs.MODE == 'SKIP FOR TESTING' }}
       with:
         inlineScript: |
-          az group create --location 'EastUS2' --name 'Databricks-MyProject-MG-QA'
-          az deployment group create --resource-group 'Databricks-MyProject-MG-QA' --template-file $GITHUB_WORKSPACE/ARM-Templates/azuredeploy.databricks.json --parameters @$GITHUB_WORKSPACE/ARM-Templates/parameters.databricks.json --parameters workspaceName='Databricks-MyProject-MG-QA'
+          az group create --location 'East US' --name 'spociqz'
+          az deployment group create --resource-group 'spociqz' --template-file $GITHUB_WORKSPACE/ARM-Templates/azuredeploy.databricks.json --parameters @$GITHUB_WORKSPACE/ARM-Templates/parameters.databricks.json --parameters workspaceName='spociqz'
     # Deploy Azure KeyVault
     - name: Deploy ARM Template (KeyVault)
       uses: azure/CLI@v1
@@ -461,8 +461,8 @@ jobs:
       # if: ${{ github.event.inputs.MODE == 'SKIP FOR TESTING' }}
       with:
         inlineScript: |
-          az group create --location 'EastUS2' --name 'Databricks-MyProject-MG-Prod'
-          az deployment group create --resource-group 'Databricks-MyProject-MG-Prod' --template-file $GITHUB_WORKSPACE/ARM-Templates/azuredeploy.databricks.json --parameters @$GITHUB_WORKSPACE/ARM-Templates/parameters.databricks.json --parameters workspaceName='Databricks-MyProject-MG-Prod'
+          az group create --location 'East US' --name 'spociqz'
+          az deployment group create --resource-group 'spociqz' --template-file $GITHUB_WORKSPACE/ARM-Templates/azuredeploy.databricks.json --parameters @$GITHUB_WORKSPACE/ARM-Templates/parameters.databricks.json --parameters workspaceName='spociqz'
     # Deploy Azure KeyVault
     - name: Deploy ARM Template (KeyVault)
       uses: azure/CLI@v1
